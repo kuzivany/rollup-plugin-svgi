@@ -1,0 +1,28 @@
+{
+  "name": "rollup-plugin-svgi",
+  "version": "0.1.0",
+  "description": "Use SVG files in JSX",
+  "main": "rollup-plugin-svgi.cjs.js",
+  "module": "rollup-plugin-svgi.esm.js",
+  "keywords": [
+    "rollup-plugin",
+    "svg",
+    "jsx"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "homepage": "https://github.com/kuzivany/rollup-plugin-svgi",
+  "author": "Kuzivakwashe <kuzivany@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "rollup-pluginutils": "^2.3.3"
+  },
+  "repository": "https://github.com/kuzivany/rollup-plugin-svgi",
+  "bugs": {
+    "url": "https://github.com/kuzivany/rollup-plugin-svgi/issues"
+  },
+  "devDependencies": {
+    "rollup": "^1.0.0"
+  }
+}
