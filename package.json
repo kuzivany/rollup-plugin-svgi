@@ -18,11 +18,14 @@
   "dependencies": {
     "rollup-pluginutils": "^2.3.3"
   },
+  "devDependencies": {
+    "rollup": "^1.0.0"
+  },
+  "peerDependencies":{
+    "rollup": ">=0.60.0 <2"
+  },
   "repository": "https://github.com/kuzivany/rollup-plugin-svgi",
   "bugs": {
     "url": "https://github.com/kuzivany/rollup-plugin-svgi/issues"
-  },
-  "devDependencies": {
-    "rollup": "^1.0.0"
   }
 }
