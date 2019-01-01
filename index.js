@@ -1,18 +1,16 @@
 import { createFilter } from "rollup-pluginutils";
 
-export default 
 /**
- * `import`s a `.svg` file and `export`s it as a module with `default` pointing to a functional component.
+ * Imports a SVG file and exports it as a module
+ * with `default` pointing to a functional component.
  * @param {SVGiConfig} config
  */
-( config ) => {
-	if ( !(config && config.options && config.options.jsx) ) {
+function svgi ({ options, exclude, include = '**/*.svg' }) {
+	if ( !(options && options.jsx) ) {
 		throw new Error("options.jsx is required");
 	}
 
-	config.include = config.include || '**/*.svg'
-	
-	const filter = createFilter(config.include, config.exclude);
+	const filter = createFilter(include, exclude);
 
 	return {
 		name: 'svgi',
@@ -24,19 +22,19 @@ export default
 			if ( !filter(id) ) return;
 
 			let library;
-			let factory = config.options.factory || null;
-			let $default = typeof config.options.default === "boolean"?
-				config.options.default:
+			let factory = options.factory || null;
+			let $default = typeof options.default === "boolean"?
+				options.default:
 				true
 			;
 			
-			let clean = config.options.clean || (rawSVG => (rawSVG
+			let clean = options.clean || (rawSVG => (rawSVG
 				.replace(/\s*<\?xml[\s\S]+?\?>\s*/, "") // Remove XML declaration
 				.replace(/\s*<!DOCTYPE[\s\S]*?>\s*/i, "") // Remove DOCTYPE
 				.replace(/[a-z]+\:[a-z]+\s*=\s*"[\s\S]+?"/ig, "") // Remove namespaced attributes
 			));
 
-			switch ( config.options.jsx ) {
+			switch ( options.jsx ) {
 				case "preact":
 					factory = "h";
 					$default = false;
@@ -53,13 +51,12 @@ export default
 			}
 
 			factory = $default? factory: `{ ${factory} }`;
-			library = `import ${factory} from '${config.options.jsx}';`
+			library = `import ${factory} from '${options.jsx}';`
 
 			svg = clean(svg);
 
 			// Add props:
 			svg = svg.replace(/<svg([\s\S]*?)>/ig, "<svg$1 {...props}>");
-			// console.log(svg)
 
 			const output = {
 				code: (
@@ -69,11 +66,12 @@ export default
 				map: { mappings: '' }
 			};
 
-			// console.log(output.code);
 			return output;
 		}
 	};
 }
+
+export default svgi;
 
 /**
  * @typedef {Object} SVGiOptions
