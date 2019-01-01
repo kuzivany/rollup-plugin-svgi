@@ -10,7 +10,8 @@
     "jsx"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "homepage": "https://github.com/kuzivany/rollup-plugin-svgi",
   "author": "Kuzivakwashe <kuzivany@gmail.com>",
@@ -19,9 +20,10 @@
     "rollup-pluginutils": "^2.3.3"
   },
   "devDependencies": {
-    "rollup": "^1.0.0"
+    "rollup": "^1.0.0",
+    "rollup-watch": "^4.3.1"
   },
-  "peerDependencies":{
+  "peerDependencies": {
     "rollup": ">=0.60.0 <2"
   },
   "repository": "https://github.com/kuzivany/rollup-plugin-svgi",
