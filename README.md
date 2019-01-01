@@ -27,6 +27,8 @@ yarn add rollup-plugin-svgi -D
 // rollup.config.js
 import svgi from 'rollup-plugin-svgi';
 
+const config = {/* ... */};
+
 export default {
   entry: 'main.js',
   plugins: [
@@ -35,31 +37,18 @@ export default {
 }
 ```
 
-| Item | Description |
+### Configuration
+
+The `config` object passed to the plugin is composed of the following properties:
+
+| Property | Description |
 | ------ | ----------- |
-| `config` | The config object passed to the plugin |
-| `config.options` | The options object |
-| `config.options.jsx` | The JSX library to use e.g. `"preact"` or `"react"` |
-| `config.exclude` | Minimatch pattern(s) to exclude. Defaults to `undefined`.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). |
-| `config.include` | Minimatch pattern(s) to include. Defaults to `undefined`.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). |
+| `options` | The options object |
+| `options.jsx` | The JSX library to use e.g. `"preact"` or `"react"` |
+| `exclude` | Minimatch pattern(s) to exclude. Defaults to `undefined`.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). |
+| `include` | Minimatch pattern(s) to include. Defaults to `undefined`.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). |
 
-### Example
-
-```js
-// rollup.config.js
-import svgi from 'rollup-plugin-svgi';
-
-export default {
-  entry: 'main.js',
-  plugins: [
-    svgi({
-      options: {
-        jsx: "preact"
-      }
-    })
-  ]
-}
-```
+### Basic setup
 
 ```js
 // main.js
@@ -71,7 +60,63 @@ export default () => (
     <div class="App-header">
       <Logo class="App-logo" />
     </div>
-    {/* ... */}
   </div>
 );
+```
+
+```js
+// rollup.config.js
+import svgi from 'rollup-plugin-svgi';
+
+export default {
+  entry: 'main.js',
+  plugins: [
+    svgi({
+      options: {
+        jsx: "preact",
+      },
+    }),
+  ]
+}
+```
+
+### Advanced setup
+
+```js
+/** EXAMPLE 1: Specific `exclude` */
+
+// rollup.config.js
+import svgi from 'rollup-plugin-svgi';
+
+export default {
+  entry: 'main.js',
+  plugins: [
+    svgi({
+      options: {
+        jsx: "react",
+        exclude: ['**/*.dev.svg', '**/*.max.svg'],
+      },
+    }),
+  ]
+}
+```
+
+```js
+/** EXAMPLE 2: Using a different JSX library */
+
+// rollup.config.js
+import svgi from 'rollup-plugin-svgi';
+
+export default {
+  entry: 'main.js',
+  plugins: [
+    svgi({
+      options: {
+        jsx: "inferno",
+        factory: "createElement",
+        'default': false // import { createElement } from 'inferno';
+      },
+    }),
+  ]
+}
 ```
