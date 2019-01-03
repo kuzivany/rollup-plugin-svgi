@@ -27,12 +27,13 @@ function svgi ({ options, exclude, include = '**/*.svg' }) {
 				options.default:
 				true
 			;
-			
-			let clean = options.clean || (rawSVG => (rawSVG
-				.replace(/\s*<\?xml[\s\S]+?\?>\s*/, "") // Remove XML declaration
-				.replace(/\s*<!DOCTYPE[\s\S]*?>\s*/i, "") // Remove DOCTYPE
-				.replace(/[a-z]+\:[a-z]+\s*=\s*"[\s\S]+?"/ig, "") // Remove namespaced attributes
-			));
+			let clean = options.clean || (
+				rawSVG => (rawSVG
+					.replace(/\s*<\?xml[\s\S]+?\?>\s*/, "") // Remove XML declaration
+					.replace(/\s*<!DOCTYPE[\s\S]*?>\s*/i, "") // Remove DOCTYPE
+					.replace(/[a-z]+\:[a-z]+\s*=\s*"[\s\S]+?"/ig, "") // Remove namespaced attributes
+				)
+			);
 
 			switch ( options.jsx ) {
 				case "preact":
@@ -41,8 +42,8 @@ function svgi ({ options, exclude, include = '**/*.svg' }) {
 				break;
 					
 				case "react":
-					factory = "createElement"
-					$default = false;
+					factory = "React"
+					$default = true;
 				break;
 			}
 
