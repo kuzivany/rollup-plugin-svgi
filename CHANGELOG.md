@@ -1,6 +1,6 @@
 # rollup-plugin-svgi changelog
 
-## 0.1.1 (2019-01-01)
+## 0.1.1 (2019-01-04)
 
 - Refactoring
 	- Minor code clean up
