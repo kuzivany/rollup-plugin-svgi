@@ -45,7 +45,7 @@ The `config` object passed to the plugin is composed of the following properties
 | -------- | ----------- | ------- |
 | `options` | The options object | `undefined` |
 | `options.jsx` | The JSX library to use e.g. `"preact"` or `"react"` | `undefined` |
-| `options.factory` | The JSX pragma or name of the function called at runtime for each node to e.g. `preact.h` or `React.createElement` | `undefined` |
+| `options.factory` | The JSX [pragma](https://jasonformat.com/wtf-is-jsx/#thepragma) or name of the function called at runtime for each node e.g. `preact.h` or `React.createElement` | `undefined` |
 | `options.default` | Whether or not the `options.factory` is the `default` export of the provided `options.jsx` library.<br/>If `false`, the provided `options.jsx` will be a [named `export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#Description) | `true` |
 | `options.clean` | The function used to clean up/ prepare the SVG for inlining. It has a `(rawSVG) => string` function signature and removes the `DOCTYPE`, XML declaration and namespaced attributes | [`function`](./index.js#L30) |
 | `exclude` | Minimatch pattern(s) to exclude.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). | `undefined` |
