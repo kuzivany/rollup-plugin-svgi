@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-svgi",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Use SVG files in JSX",
   "main": "rollup-plugin-svgi.cjs.js",
   "module": "rollup-plugin-svgi.esm.js",
