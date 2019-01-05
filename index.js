@@ -57,7 +57,7 @@ function svgi ({ options, exclude, include = '**/*.svg' }) {
 			svg = clean(svg);
 
 			// Add props:
-			svg = svg.replace(/<svg([\s\S]*?)>/ig, "<svg$1 {...props}>");
+			svg = svg.replace(/<svg([\s\S]*?)>/i, "<svg$1 {...props}>");
 
 			const output = {
 				code: (
