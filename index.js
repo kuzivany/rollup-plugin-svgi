@@ -32,6 +32,7 @@ function svgi ({ options, exclude, include = '**/*.svg' }) {
 					.replace(/\s*<\?xml[\s\S]+?\?>\s*/, "") // Remove XML declaration
 					.replace(/\s*<!DOCTYPE[\s\S]*?>\s*/i, "") // Remove DOCTYPE
 					.replace(/[a-z]+\:[a-z]+\s*=\s*"[\s\S]+?"/ig, "") // Remove namespaced attributes
+					.replace(/\s*<!\-\-[\s\S]*?\-\->\s*/i, "") // Remove comments
 				)
 			);
 
