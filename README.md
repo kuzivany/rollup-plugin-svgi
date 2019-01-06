@@ -1,11 +1,18 @@
 # rollup-plugin-svgi
 
+[![npm](https://badgen.net/npm/v/rollup-plugin-svgi)](https://www.npmjs.com/package/rollup-plugin-svgi)
+[![dependencies](https://david-dm.org/kuzivany/rollup-plugin-svgi.svg)](https://david-dm.org/kuzivany/rollup-plugin-svgi)
+
 Use SVG files in JSX.
 
 ## Why?
 
-- To `import` SVG as JSX in [Preact](http://preactjs.com/)/ [React](https://reactjs.org/) using [Rollup](http://rollupjs.org/).
-- To use inline svg in JSX
+To:
+
+- `import` SVG as components in [Preact](http://preactjs.com/), [React](https://reactjs.org/) and other libraries using [Rollup](http://rollupjs.org/).
+- Inline SVG
+
+SVG files are `import`ed as functional components which accept `props`.
 
 ## Installation
 
