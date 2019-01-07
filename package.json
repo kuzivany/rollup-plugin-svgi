@@ -1,19 +1,26 @@
 {
   "name": "rollup-plugin-svgi",
-  "version": "0.1.2",
-  "description": "Use SVG files in JSX",
-  "main": "rollup-plugin-svgi.cjs.js",
-  "module": "rollup-plugin-svgi.esm.js",
+  "version": "0.2.0-dev.0",
+  "description": "Import SVG files as JSX components",
+  "main": "dist/rollup-plugin-svgi.js",
+  "module": "rollup-plugin-svgi.mjs",
+  "jsnext:main": "rollup-plugin-svgi.mjs",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build",
+    "watch": "rollup -c -w"
+  },
   "keywords": [
     "rollup-plugin",
     "svg",
-    "jsx"
+    "jsx",
+    "preact",
+    "react",
+    "components"
   ],
-  "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w"
-  },
-  "homepage": "https://github.com/kuzivany/rollup-plugin-svgi",
+  "files": [
+    "dist"
+  ],
   "author": "Kuzivakwashe <kuzivany@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -26,6 +33,7 @@
   "peerDependencies": {
     "rollup": ">=0.60.0 <2"
   },
+  "homepage": "https://github.com/kuzivany/rollup-plugin-svgi",
   "repository": "https://github.com/kuzivany/rollup-plugin-svgi",
   "bugs": {
     "url": "https://github.com/kuzivany/rollup-plugin-svgi/issues"
