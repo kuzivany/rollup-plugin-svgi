@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-svgi",
-  "version": "0.2.0-dev.1",
+  "version": "0.2.0-dev.3",
   "description": "Import SVG files as JSX components",
   "main": "dist/rollup-plugin-svgi.js",
   "module": "rollup-plugin-svgi.mjs",

@@ -7,8 +7,8 @@ Import SVG files as JSX components.
 
 ## Purpose
 
-- `import` SVG as components in [Preact](http://preactjs.com/), [React](https://reactjs.org/) and other libraries using [Rollup](http://rollupjs.org/).
-- Use inline SVG
+This is a <a href="http://rollupjs.org/" target="_blank">Rollup</a> plugin for `import`ing SVG as components in <a href="http://preactjs.com/" target="_blank">Preact</a>, <a href="https://reactjs.org/" target="_blank">React</a> and other [libraries](#examples).
+<!-- inlining SVG elements as components -->
 
 ## Installation
 
@@ -20,7 +20,7 @@ Get started by installing `rollup-plugin-svgi` from your terminal with your pref
 npm install rollup-plugin-svgi --save-dev
 ```
 
-### [`yarn`](http://yarnpkg.com/)
+### <a href="http://yarnpkg.com/" target="_blank">`yarn`</a>
 
 ```bash
 yarn add rollup-plugin-svgi -D
@@ -28,7 +28,7 @@ yarn add rollup-plugin-svgi -D
 
 ## Usage
 
-```js
+```javascript
 // rollup.config.js
 import svgi from 'rollup-plugin-svgi';
 
@@ -49,22 +49,23 @@ The `config` object passed to the plugin is composed of the following properties
 | Property | Description | Default |
 | -------- | ----------- | ------- |
 | `options` | The options object | `undefined` |
-| `options.jsx` | The JSX library to use e.g. `"preact"` or `"react"` | `undefined` |
-| `options.factory` | The JSX [pragma](https://jasonformat.com/wtf-is-jsx/#thepragma) or name of the function called at runtime for each node e.g. `preact.h` or `React.createElement` | `undefined` |
-| `options.default` | Whether or not the `options.factory` is the `default` export of the provided `options.jsx` library.<br/>If `false`, the provided `options.jsx` will be a [named `export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#Description) | `true` |
-| `options.clean` | The function used to clean up/ prepare the SVG for inlining. It has a `(rawSVG) => string` or `(rawSVG) => Promise<string>` function signature and removes the `DOCTYPE`, XML declaration, comments and namespaced attributes | [`function`](./index.js#L30) |
-| `exclude` | Minimatch pattern(s) to exclude.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). | `undefined` |
-| `include` | Minimatch pattern(s) to include.<br/>[More at rollupjs.org](https://rollupjs.org/guide/en#transformers). | `"**/*.svg"` |
+| <code id="jsx">options.jsx</code> | The JSX library or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Syntax" target="_blank">module name</a> to use e.g. `"preact"` or `"react"` (**required**) | `undefined` |
+| <code id="factory">options.factory</code> | The JSX <a href="https://jasonformat.com/wtf-is-jsx/#thepragma" target="_blank">pragma</a>&mdash;the function used for compiling each JSX node **e.g.** `preact.h` or `React.createElement` | `undefined` |
+| <code id="default">options.default</code> | Whether or not the [`options.factory`](#factory) is the `default` export of the provided [`options.jsx`](#jsx) library.<br/>If `false`, the provided [`options.jsx`](#jsx) will be a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#Description" target="_blank">named `export`</a> | `true` |
+| <code id="clean">options.clean</code> | The function used to clean up/ prepare the SVG for inlining. It removes the `DOCTYPE`, XML declaration, comments and namespaced attributes and has a `(rawSVG) => string` or `(rawSVG) => Promise<string>` function signature | `function` |
+| `exclude` | <a href="https://github.com/isaacs/minimatch" target="_blank">Minimatch pattern(s)</a> to exclude.<br/>More at <a href="https://rollupjs.org/guide/en#transformers" target="_blank">rollupjs.org</a>. | `undefined` |
+| `include` | <a href="https://github.com/isaacs/minimatch" target="_blank">Minimatch pattern(s)</a> to include.<br/>More at <a href="https://rollupjs.org/guide/en#transformers" target="_blank">rollupjs.org</a>. | `"**/*.svg"` |
 
 ### Examples
 
 Here are some complete `rollup.config.js` and starter project examples for:
-- [Preact](https://github.com/kuzivany/simple-preact-rollup)
-- [React, Inferno](https://github.com/kuzivany/simple-rollup-starter)
+
+ - [Preact](https://github.com/kuzivany/simple-preact-rollup)
+ - [React, Inferno](https://github.com/kuzivany/simple-rollup-starter)
 
 #### Basic example
 
-```js
+```javascript
 // main.js
 import { h } from 'preact'; // OR import React from 'react';
 import Logo from 'path/to/logo.svg';
@@ -78,7 +79,7 @@ export default () => (
 );
 ```
 
-```js
+```javascript
 // rollup.config.js
 import svgi from 'rollup-plugin-svgi';
 
@@ -88,7 +89,7 @@ export default {
   plugins: [
     svgi({
       options: {
-        jsx: "preact", // Your chosen JSX library
+        jsx: 'preact', // Your chosen JSX library
       },
     }),
   ]
@@ -99,7 +100,7 @@ export default {
 
 ##### Specifying a library
 
-```js
+```javascript
 // rollup.config.js
 import svgi from 'rollup-plugin-svgi';
 
@@ -108,8 +109,8 @@ export default {
   plugins: [
     svgi({
       options: {
-        jsx: "inferno-create-element",
-        factory: "createElement",
+        jsx: 'inferno-create-element',
+        factory: 'createElement',
         'default': false // import { createElement } from 'inferno-create-element';
       },
     }),
@@ -117,21 +118,25 @@ export default {
 }
 ```
 
+**[See full _library_ example here](https://github.com/kuzivany/simple-rollup-starters/tree/master/inferno)**
+
 ##### Using SVGO
 
-`options.clean` allows you to specify a custom function to remove any unnecessary elements in your SVG files. [SVGO](https://github.com/svg/svgo) can be used in `options.clean`:
+[`options.clean`](#clean) allows you to specify a custom function to remove any unnecessary elements in your SVG files.
+
+<a href="https://github.com/svg/svgo" target="_blank">SVGO</a> can be used through [`options.clean`](#clean) to optimise your SVG files:
 
 ```js
 // rollup.config.js
 import svgi from 'rollup-plugin-svgi';
-import SVGO from "svgo";
+import SVGO from 'svgo';
 
 export default {
   entry: 'main.js',
   plugins: [
     svgi({
       options: {
-        jsx: "react",
+        jsx: 'react',
         clean: rawSVG => (
           new SVGO({
             plugins: [
@@ -148,9 +153,12 @@ export default {
 }
 ```
 
+**[Full _SVGO_ example here](https://github.com/kuzivany/simple-rollup-starters/tree/master/react)**
+
 ## Internals
 
-SVG files are `import`ed as functional components which accept `props`:
+SVG files are `import`ed as functional components which accept `props`.
+An example `logo.svg` file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -161,11 +169,13 @@ SVG files are `import`ed as functional components which accept `props`:
 </svg>
 ```
 
+`import`ed in a javascript file:
+
 ```jsx
 import Logo from 'path/to/logo.svg';
 ```
 
-pretty much does this:
+makes this available in your code:
 
 ```jsx
 const Logo = props => (
