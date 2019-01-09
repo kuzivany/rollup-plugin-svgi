@@ -5,7 +5,7 @@ import { createFilter } from 'rollup-pluginutils';
  * with `default` pointing to a functional component.
  * @param {SVGiConfig} config
  */
-export default function svgi ({ options, exclude, include = '**/*.svg' }) {
+function svgi ({ options, exclude, include = '**/*.svg' }) {
 	if ( !(options && options.jsx) ) {
 		throw new Error("options.jsx is required");
 	}
@@ -85,6 +85,8 @@ export default function svgi ({ options, exclude, include = '**/*.svg' }) {
 		}
 	};
 }
+
+export default svgi;
 
 /**
  * @typedef {Object} SVGiConfig
