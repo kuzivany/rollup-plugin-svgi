@@ -3,8 +3,8 @@
   "version": "0.2.0",
   "description": "Import SVG files as JSX components",
   "main": "dist/rollup-plugin-svgi.js",
-  "module": "rollup-plugin-svgi.mjs",
-  "jsnext:main": "rollup-plugin-svgi.mjs",
+  "module": "dist/rollup-plugin-svgi.mjs",
+  "jsnext:main": "dist/rollup-plugin-svgi.mjs",
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build",

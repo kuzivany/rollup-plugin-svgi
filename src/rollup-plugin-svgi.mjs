@@ -34,6 +34,7 @@ function svgi ({ options, exclude, include = '**/*.svg' }) {
 					.replace(/\s*<!DOCTYPE[\s\S]*?>\s*/i, "") // Remove DOCTYPE
 					.replace(/[a-z]+\:[a-z]+\s*=\s*"[\s\S]+?"/ig, "") // Remove namespaced attributes
 					.replace(/\s*<!\-\-[\s\S]*?\-\->\s*/ig, "") // Remove comments
+					.replace(/\s+/g, ' ') // Replace excessive whitespace
 				)
 			);
 
