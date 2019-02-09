@@ -48,11 +48,11 @@ The `config` object passed to the plugin is composed of the following properties
 
 | Property | Description | Default |
 | -------- | ----------- | ------- |
-| `options` | The options object | `undefined` |
-| <code id="jsx">options.jsx</code> | The JSX library or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Syntax" target="_blank">module name</a> to use e.g. `"preact"` or `"react"` (**required**) | `undefined` |
-| <code id="factory">options.factory</code> | The JSX <a href="https://jasonformat.com/wtf-is-jsx/#thepragma" target="_blank">pragma</a>&mdash;the function used for compiling each JSX node **e.g.** `preact.h` or `React.createElement` | `undefined` |
-| <code id="default">options.default</code> | Whether or not the [`options.factory`](#factory) is the `default` export of the provided [`options.jsx`](#jsx) library.<br/>If `false`, the provided [`options.jsx`](#jsx) will be a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#Description" target="_blank">named `export`</a> | `true` |
-| <code id="clean">options.clean</code> | The function used to clean up/ prepare the SVG for inlining. It removes the `DOCTYPE`, XML declaration, comments and namespaced attributes and has a `(rawSVG) => string` or `(rawSVG) => Promise<string>` function signature | `function` |
+| <code id="jsx">jsx</code> | The JSX library or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Syntax" target="_blank">module name</a> to use e.g. `"preact"` or `"react"` (**required**) | `undefined` |
+| <code id="factory">factory</code> | The default or named exports of the chosen JSX library | `undefined` |
+| <code id="pragma">pragma</code> | The JSX <a href="https://jasonformat.com/wtf-is-jsx/#thepragma" target="_blank">pragma</a>&mdash;the function used for compiling each JSX node **e.g.** `preact.h` or `React.createElement` | `undefined` |
+| <code id="isDefault">isDefault</code> | Whether or not the [`factory`](#factory) is the `default` export of the provided [`jsx`](#jsx) library.<br/>If `false`, the provided [`jsx`](#jsx) will be a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#Description" target="_blank">named `export`</a> | `true` |
+| <code id="clean">clean</code> | The function used to clean up/ prepare the SVG for inlining. It removes the `DOCTYPE`, XML declaration, comments and namespaced attributes and has a `(rawSVG) => string` or `(rawSVG) => Promise<string>` function signature | `function` |
 | `exclude` | <a href="https://github.com/isaacs/minimatch" target="_blank">Minimatch pattern(s)</a> to exclude.<br/>More at <a href="https://rollupjs.org/guide/en#transformers" target="_blank">rollupjs.org</a>. | `undefined` |
 | `include` | <a href="https://github.com/isaacs/minimatch" target="_blank">Minimatch pattern(s)</a> to include.<br/>More at <a href="https://rollupjs.org/guide/en#transformers" target="_blank">rollupjs.org</a>. | `"**/*.svg"` |
 
@@ -88,9 +88,7 @@ export default {
   // ...
   plugins: [
     svgi({
-      options: {
-        jsx: 'preact', // Your chosen JSX library
-      },
+      jsx: 'preact', // Your chosen JSX library
     }),
   ]
 }
@@ -108,11 +106,10 @@ export default {
   entry: 'main.js',
   plugins: [
     svgi({
-      options: {
-        jsx: 'inferno-create-element',
-        factory: 'createElement',
-        'default': false // import { createElement } from 'inferno-create-element';
-      },
+      jsx: 'inferno-create-element',
+      factory: 'createElement',
+      pragma: 'createElement',
+      isDefault: false // import { createElement } from 'inferno-create-element';
     }),
   ]
 }
@@ -122,9 +119,9 @@ export default {
 
 ##### Using SVGO
 
-[`options.clean`](#clean) allows you to specify a custom function to remove any unnecessary elements in your SVG files.
+[`clean`](#clean) allows you to specify a custom function to remove any unnecessary elements in your SVG files.
 
-<a href="https://github.com/svg/svgo" target="_blank">SVGO</a> can be used through [`options.clean`](#clean) to optimise your SVG files:
+<a href="https://github.com/svg/svgo" target="_blank">SVGO</a> can be used through [`clean`](#clean) to optimise your SVG files:
 
 ```js
 // rollup.config.js
@@ -135,19 +132,17 @@ export default {
   entry: 'main.js',
   plugins: [
     svgi({
-      options: {
-        jsx: 'react',
-        clean: rawSVG => (
-          new SVGO({
-            plugins: [
-              {removeDoctype: true},
-              {removeXMLNS: true},
-              {removeComments: true},
-              {removeViewBox: false},
-            ]
-          }).optimize(rawSVG).then(optzSvg => optzSvg.data)
-        )
-      }
+      jsx: 'react',
+      clean: rawSVG => (
+        new SVGO({
+          plugins: [
+            {removeDoctype: true},
+            {removeXMLNS: true},
+            {removeComments: true},
+            {removeViewBox: false},
+          ]
+        }).optimize(rawSVG).then(optzSvg => optzSvg.data)
+      )
     })
   ]
 }

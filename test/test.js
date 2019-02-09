@@ -14,6 +14,7 @@ const test = ( clean ) => (
 				options: {
 					jsx: h,
 					factory: 'h',
+					pragma: 'h',
 					'default': false,
 					clean
 				},
@@ -30,11 +31,13 @@ const test = ( clean ) => (
 
 
 describe('rollup-plugin-svgi', function () {
-	it('returns a component', () => test(null).then(({ code }) => (
+	it('returns a component', () => test(null).then(({ code }) => {
+		// console.log(code)
 		assert.ok(
-			code.indexOf("function Logo ( props ) { return (h( 'svg'") > -1
+			code.indexOf("function Logo ( props ) {") > -1 &&
+			code.indexOf("return h('svg'") > -1
 		)
-	)));
+	}));
 
 	it('accepts `options.clean` which returns a Promise', () => test(
 		svg => Promise.resolve(
@@ -45,7 +48,8 @@ describe('rollup-plugin-svgi', function () {
 				.replace(/\s*<!\-\-[\s\S]*?\-\->\s*/ig, "")
 		)).then(({ code }) => (
 			assert.ok(
-				code.indexOf("function Logo ( props ) { return (h( 'svg'") > -1
+				code.indexOf("function Logo ( props ) {") > -1 &&
+				code.indexOf("return h('svg'") > -1
 			)
 		))
 	);
